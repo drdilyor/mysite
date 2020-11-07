@@ -1,0 +1,8 @@
+**/__pycache__/
+*.py[co]
+
+.idea/
+venv/
+
+db.sqlite3
+mysite/settingssecret.py
