@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>
+  Click <a href="{{ link }}" target="_blank">here</a> and start our bot
+  to login with telegram.
+</p>
+<form method="post">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ next }}">
+  <input type="Submit" value="Continue">
+</form>
+{% if error_messages %}
+  <ul>
+  {% for error in error_messages %}
+  <li><strong>{{ error }}</strong></li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endblock content %}
