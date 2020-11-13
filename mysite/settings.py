@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # noinspection PyUnresolvedReferences
 from .settingssecret import SECRET_KEY, DEBUG  # noqa: E402
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
