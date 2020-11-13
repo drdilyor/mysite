@@ -1,0 +1,23 @@
+{% extends 'polls/base.html' %}
+
+{% block title %}Results{% endblock %}
+{% block css %}<style> .checked { font-weight: bold } </style> {% endblock %}
+
+{% block content %}
+<h1>{{ question.title }}</h1>
+<p>{{ question.description }}</p>
+<p>
+  published by {{ question.author.username }}
+  on {{ question.pub_date }},
+  viewed {{ question.view_count }} times
+</p>
+<ul>
+  {% for choice in question.choice_set.all %}
+  {% with vote_count=choice.get_vote_count %}
+  <li {% if user_choice == choice %}class="checked" {% endif %}>
+    {{ choice.choice_text }} -- {{ vote_count }} vote{{vote_count|pluralize}}
+  </li>
+  {% endwith %}
+  {% endfor %}
+</ul>
+{% endblock content %}

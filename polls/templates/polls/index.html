@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Index</title>
+</head>
+<body>
+<p>Welcome to polls index</p>
+<ul>
+  {% for question in latest_question_list %}
+  <li><a href="{{ question.get_absolute_url }}">{{ question }}</a></li>
+  {% endfor %}
+</ul>
+</body>
+</html>
