@@ -28,7 +28,7 @@ class DetailView(g.DetailView):
         return super().get(request, **kwargs)
 
 
-class VoteRequiredMixin(LoginRequiredMixin):
+class VoteRequiredMixin:
     """Mixin checks if user has voted on a question.
     Assuming user is already authenticated
     """
@@ -51,7 +51,7 @@ class VoteRequiredMixin(LoginRequiredMixin):
         return super().get_context_data(**context)
 
 
-class ResultsView(VoteRequiredMixin, g.DetailView):
+class ResultsView(LoginRequiredMixin, VoteRequiredMixin, g.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
