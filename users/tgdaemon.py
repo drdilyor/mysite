@@ -32,7 +32,8 @@ class TgTokenDaemon:
             u.bot.delete_webhook()
             u.start_polling()
         else:
-            u.bot.set_webhook(reverse('users:webhook'))
+            host = 'https://drdilyor.pythonanywhere.com'
+            u.bot.set_webhook(host + reverse('users:webhook'))
         self._u = u
 
     def handle_token(self, update: Update, context: CallbackContext) -> bool:
