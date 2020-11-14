@@ -4,8 +4,9 @@ bot updates and activates tokens
 """
 import json
 import re
+from typing import Dict, Any
 
-from django.conf import settings
+from django.urls import reverse
 from telegram import Update, User
 from telegram.ext import CommandHandler, CallbackContext, Updater
 
@@ -20,15 +21,23 @@ class TgTokenDaemon:
     #     return cls._instance
 
     def __init__(self):
+        from django.conf import settings
+
         print('==== CREATED DAEMON')
         u = Updater(settings.BOT_TOKEN, use_context=True)
         d = u.dispatcher
         d.add_handler(CommandHandler(['token', 'start'], self.handle_token))
-        u.start_polling()
+        # start polling in development server
+        if settings.DEBUG:
+            u.bot.delete_webhook()
+            u.start_polling()
+        else:
+            u.bot.set_webhook(reverse('users:webhook'))
         self._u = u
 
     def handle_token(self, update: Update, context: CallbackContext) -> bool:
         from .models import TgToken
+        print('token handle')
 
         args = context.args
 
@@ -53,6 +62,10 @@ class TgTokenDaemon:
         update.message.reply_text(message)
         update.message.reply_text(json.dumps(user, indent=4))
         return True
+
+    def webhook_request(self, data: Dict[str, Any]):
+        self._u.dispatcher.process_update(Update.de_json(data, self._u.bot))
+
 
     def stop(self) -> None:
         self._u.stop()

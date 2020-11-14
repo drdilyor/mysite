@@ -1,7 +1,11 @@
+import json
+
 from django.contrib.auth import login
-from django.http import HttpRequest, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect, Http404, \
+    HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import View
 
 from users.models import TgToken
@@ -55,3 +59,17 @@ class LoginView(View):
         from django.conf import settings
         token = self.request.session.session_key
         return f'http://t.me/{settings.BOT_USERNAME}/?start={token}'
+
+
+@csrf_exempt
+def webhook(request: HttpRequest):
+    if request.method == 'POST':
+        from django.apps import apps
+        daemon = apps.get_app_config('users').daemon
+        try:
+            daemon.webhook_request(json.loads(request.body))
+            return HttpResponse('ok')
+        except ValueError:
+            return HttpResponseBadRequest()
+    else:
+        raise Http404()
