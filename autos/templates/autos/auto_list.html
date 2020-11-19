@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Auto List{% endblock %}
+{% block content %}
+<h1>Auto List</h1>
+<ul>
+  {% for auto in auto_list %}
+  <li><p>
+    {{ auto.nickname }} ({{ auto.make }})
+    (<a href="{% url 'autos:auto_update' auto.id %}">Update</a>
+    | <a href="{% url 'autos:auto_delete' auto.id %}">Delete</a>)
+    <br />
+    {{ auto.comments }} ({{ auto.mileage }} miles)
+  </p></li>
+  {% empty %}
+  There are no autos in the library
+  {% endfor %}
+</ul>
+<p><a href="{% url 'autos:auto_create' %}">Add an auto</a></p>
+<p>
+  <a href="{% url 'autos:make_list' %}">View makes</a> ({{ make_count }}) |
+  <a href="{% url 'autos:make_create' %}">Add a make</a>
+</p>
+{% endblock content %}

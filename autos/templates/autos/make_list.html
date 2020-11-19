@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Make list{% endblock %}
+{% block content %}
+<h1>Make list</h1>
+<ul>
+  {% for make in make_list %}
+  <li>
+    {{ make }}
+    (<a href="{% url 'autos:make_update' make.id %}">Update</a>
+    | <a href="{% url 'autos:make_delete' make.id %}">Delete</a>)
+  </li>
+  {% empty %}
+  No makes yet
+  {% endfor %}
+</ul>
+<p><a href="{% url 'autos:make_create' %}">Add make</a></p>
+<p><a href="{% url 'autos:all' %}">Back to autos</a></p>
+{% endblock content %}

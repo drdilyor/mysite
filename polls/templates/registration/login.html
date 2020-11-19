@@ -1,0 +1,8 @@
+Login to proceed
+<form method="post">
+  {% csrf_token %}
+  <table>{{ form.as_table }}</table>
+  {% for e in form.errors %}{{ e }}{% endfor %}
+  <input type="hidden" name="next" value="{{ next }}">
+  <input type="submit" value="Login">
+</form>
