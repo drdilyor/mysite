@@ -6,7 +6,7 @@
 <p>Do you really want to delete auto "{{ auto }}"?</p>
 <form method="post">
   {% csrf_token %}
-  <input type="submit" value="Yes, delete it">
+  <input type="submit" value="Yes, delete.">
   <input type="submit" value="Cancel"
          onclick="window.location='{% url 'autos:all' %}';return !1">
 </form>
