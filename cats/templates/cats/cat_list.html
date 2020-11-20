@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Cat List{% endblock %}
+{% block content %}
+<h1>Cat List</h1>
+<ul>
+  {% for cat in cat_list %}
+  <li><p>
+    {{ cat.nickname }} ({{ cat.breed }})
+    (<a href="{% url 'cats:cat_update' cat.id %}">Update</a>
+    | <a href="{% url 'cats:cat_delete' cat.id %}">Delete</a>)
+    <br />
+    {{ cat.foods }} ({{ cat.weight }} kg)
+  </p></li>
+  {% empty %}
+  There are no cats in the library
+  {% endfor %}
+</ul>
+<p><a href="{% url 'cats:cat_create' %}">Add a cat</a></p>
+<p>
+  <a href="{% url 'cats:breed_list' %}">View breeds</a> ({{ breed_count }}) |
+  <a href="{% url 'cats:breed_create' %}">Add a breed</a>
+</p>
+{% endblock content %}

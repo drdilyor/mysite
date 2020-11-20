@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Breed list{% endblock %}
+{% block content %}
+<h1>Breed list</h1>
+<ul>
+  {% for breed in breed_list %}
+  <li>
+    {{ breed }}
+    (<a href="{% url 'cats:breed_update' breed.id %}">Update</a>
+    | <a href="{% url 'cats:breed_delete' breed.id %}">Delete</a>)
+  </li>
+  {% empty %}
+  No breeds yet
+  {% endfor %}
+</ul>
+<p><a href="{% url 'cats:breed_create' %}">Add breed</a> <a href="{% url 'cats:breed_list' %}">View breeds</a></p>
+<p><a href="{% url 'cats:cat_list' %}">Back to cats</a></p>
+{% endblock content %}

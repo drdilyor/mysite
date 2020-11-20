@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Breed{% endblock %}
+{% block content %}
+<h1>Confirm delete</h1>
+<p>Do you really want to delete breed "{{ breed }}"?</p>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete.">
+  <input type="submit" value="Cancel"
+         onclick="window.location='{% url 'cats:breed_list' %}';return false">
+</form>
+{% endblock content %}
