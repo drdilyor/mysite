@@ -19,7 +19,7 @@ class MainView(LoginRequiredMixin, View):
         })
 
 
-class AutoCreate(View):
+class AutoCreate(LoginRequiredMixin, View):
     template = 'autos/auto_form.html'
     success_url = 'autos:all'
 
@@ -36,7 +36,7 @@ class AutoCreate(View):
             return redirect(self.success_url)
 
 
-class AutoUpdate(View):
+class AutoUpdate(LoginRequiredMixin, View):
     template = 'autos/auto_form.html'
     success_url = 'autos:all'
 
@@ -55,7 +55,7 @@ class AutoUpdate(View):
             return redirect(self.success_url)
 
 
-class AutoDelete(View):
+class AutoDelete(LoginRequiredMixin, View):
     success_url = 'autos:all'
 
     def get(self, request: HttpRequest, pk: int):
@@ -68,24 +68,24 @@ class AutoDelete(View):
         return redirect(self.success_url)
 
 
-class MakeView(ListView):
+class MakeView(LoginRequiredMixin, ListView):
     model = Make
     template_name = 'make_list.html'
 
 
-class MakeCreate(CreateView):
+class MakeCreate(LoginRequiredMixin, CreateView):
     model = Make
     fields = '__all__'
     success_url = reverse_lazy('autos:make_list')
 
 
-class MakeUpdate(UpdateView):
+class MakeUpdate(LoginRequiredMixin, UpdateView):
     model = Make
     fields = '__all__'
     success_url = reverse_lazy('autos:make_list')
 
 
-class MakeDelete(DeleteView):
+class MakeDelete(LoginRequiredMixin, DeleteView):
     model = Make
     fields = '__all__'
     success_url = reverse_lazy('autos:make_list')

@@ -1,10 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from cats.models import Cat, Breed
 
 
-class CatView(ListView):
+class CatView(LoginRequiredMixin, ListView):
     model = Cat
 
     def get_context_data(self, *args, **kwargs):
@@ -13,39 +14,39 @@ class CatView(ListView):
         return context
 
 
-class CatCreate(CreateView):
+class CatCreate(LoginRequiredMixin, CreateView):
     model = Cat
     fields = '__all__'
     success_url = reverse_lazy('cats:cat_list')
 
 
-class CatUpdate(UpdateView):
+class CatUpdate(LoginRequiredMixin, UpdateView):
     model = Cat
     fields = '__all__'
     success_url = reverse_lazy('cats:cat_list')
 
 
-class CatDelete(DeleteView):
+class CatDelete(LoginRequiredMixin, DeleteView):
     model = Cat
     success_url = reverse_lazy('cats:cat_list')
 
 
-class BreedView(ListView):
+class BreedView(LoginRequiredMixin, ListView):
     model = Breed
 
 
-class BreedCreate(CreateView):
-    model = Breed
-    fields = '__all__'
-    success_url = reverse_lazy('cats:breed_list')
-
-
-class BreedUpdate(UpdateView):
+class BreedCreate(LoginRequiredMixin, CreateView):
     model = Breed
     fields = '__all__'
     success_url = reverse_lazy('cats:breed_list')
 
 
-class BreedDelete(DeleteView):
+class BreedUpdate(LoginRequiredMixin, UpdateView):
+    model = Breed
+    fields = '__all__'
+    success_url = reverse_lazy('cats:breed_list')
+
+
+class BreedDelete(LoginRequiredMixin, DeleteView):
     model = Breed
     success_url = reverse_lazy('cats:breed_list')
