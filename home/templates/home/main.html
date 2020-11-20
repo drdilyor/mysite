@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Drdilyor's site{% endblock %}
+{% block content %}
+<h1>Welcome to my site.</h1>
+<p>Here are some links you may find interesting.</p>
 <ul>
-  <li><p><a href="/polls/">A Polls Application</a></p></li>
-  <li><p><a href="/autos/">Autos CRUD</a></p></li>
+  <li><a href="/polls/">A Polls Application</a></li>
+  <li><a href="/autos/">Autos CRUD</a></li>
+  <li><a href="/cats/">Cats CRUD</a></li>
 </ul>
-</body>
-</html>
+{% endblock content %}
