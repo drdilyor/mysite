@@ -1,0 +1,18 @@
+{% extends 'ads/base_bootstrap.html' %}
+
+{% block content %}
+
+{% if ad_list %}
+<ul>
+  {% for ad in ad_list %}
+  <li>
+    <a href="{% url 'ads:detail' ad.id %}">{{ ad.title }}</a>
+    (<a href="{% url 'ads:update' ad.id %}">Edit</a> |
+    <a href="{% url 'ads:delete' ad.id %}">Delete</a>)
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+  No ads yet.
+{% endif %}
+{% endblock content %}
