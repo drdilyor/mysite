@@ -1,0 +1,12 @@
+{% extends 'ads/base_bootstrap.html' %}
+
+{% block title %}{{ ad }} detail {% endblock %}
+{% block content %}
+<h1>{{ ad.title }}</h1>
+<p>{{ ad.text }}</p>
+<p>Price: ${{ ad.price }}</p>
+<p>
+  <a href="{% url 'ads:update' ad.id %}">Edit</a>
+  <a href="{% url 'ads:delete' ad.id %}">Delete</a>
+</p>
+{% endblock content %}

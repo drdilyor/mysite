@@ -1,0 +1,13 @@
+{% extends 'ads/base_bootstrap.html' %}
+
+{% block title %}Confirm delete{% endblock %}
+{% block content %}
+<h1>Confirm delete</h1>
+<p>Do you really want to delete ad {{ ad }}"?</p>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete it.">
+  <input type="submit" value="Cancel"
+         onclick="window.location='{% url 'ads:detail' ad.id }';return false">
+</form>
+{% endblock content %}
