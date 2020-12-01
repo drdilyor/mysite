@@ -1,3 +1,6 @@
+{% extends 'ads/base_bootstrap.html' %}
+
+{% block content %}
 Login to proceed
 <form method="post">
   {% csrf_token %}
@@ -6,3 +9,4 @@ Login to proceed
   <input type="hidden" name="next" value="{{ next }}">
   <input type="submit" value="Login">
 </form>
+{% endblock content %}
