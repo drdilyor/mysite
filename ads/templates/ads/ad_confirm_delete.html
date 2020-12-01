@@ -8,6 +8,6 @@
   {% csrf_token %}
   <input type="submit" value="Yes, delete it.">
   <input type="submit" value="Cancel"
-         onclick="window.location='{% url 'ads:detail' ad.id }';return false">
+         onclick="window.location='{% url 'ads:detail' ad.id %}';return false">
 </form>
 {% endblock content %}
