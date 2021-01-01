@@ -13,6 +13,11 @@ class Ad(models.Model):
     )
     price = models.DecimalField(max_digits=7, decimal_places=2, null=True)
     text = models.TextField()
+    # Picture
+    picture = models.BinaryField(null=True, editable=True)
+    content_type = models.CharField(max_length=255, null=True,
+        help_text="The MIME Type of this file")
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
