@@ -20,6 +20,8 @@ from django.views.generic import TemplateView, RedirectView
 urlpatterns = [
     path('', RedirectView.as_view(url='/ads/'), name='index'),
     path('', include('ads.urls')),
+    path('home/', TemplateView.as_view(template_name='home/main.html'),
+        name='home'),
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
