@@ -43,5 +43,18 @@
   <a href="{% url 'ads:update' ad.id %}">Edit</a>
   <a href="{% url 'ads:delete' ad.id %}">Delete</a>
 </p>
+
+<h2>Comments</h2>
+{% for comment in comments %}
+  <p>{{ comment.text }} ({{comment.created_at}})</p>
+{% endfor %}
+
+{% if request.user.is_authenticated %}
+  <form method="post" action="./comment">
+    {% csrf_token %}
+    {{ comment_form }}
+    <input type="submit" value="Submit">
+  </form>
+{% endif %}
 {% endblock content %}
 

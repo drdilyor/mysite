@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import View
 
-from ads.forms import AdForm
-from ads.models import Ad
+from ads.forms import AdForm, CommentForm
+from ads.models import Ad, Comment
 from ads.owner import OwnerListView, OwnerDetailView, OwnerDeleteView
 
 
@@ -15,6 +15,21 @@ class AdListView(OwnerListView):
 
 class AdDetailView(OwnerDetailView):
     model = Ad
+
+
+class AdDetailView(View):
+    template_name = 'ads/ad_detail.html'
+
+    def get(self, request, pk: int):
+        ad = Ad.objects.get(pk=pk)
+        comments = Comment.objects.filter(ad=ad).order_by('-created_at')
+        form = CommentForm()
+        context = {
+            'ad': ad,
+            'comments': comments,
+            'comment_form': form,
+        }
+        return render(request, self.template_name, context)
 
 
 class AdCreateView(LoginRequiredMixin, View):
