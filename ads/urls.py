@@ -12,4 +12,5 @@ urlpatterns = [
     path('ad/<int:pk>/delete', AdDeleteView.as_view(), name='delete'),
     path('ad_picture/<int:pk>', stream_picture, name='ad_picture'),
     path('ad/<int:pk>/comment', create_comment, name='comment_create'),
+    path('comment/<int:pk>/delete', CommentDeleteView.as_view(), name='comment_delete')
 ]

@@ -60,7 +60,11 @@
 {% endif %}
 
 {% for comment in comments %}
-  <p>{{ comment.text }} ({{ comment.created_at|naturaltime }})</p>
+  <p>{{ comment.text }} ({{ comment.created_at|naturaltime }})
+    {% if comment.owner == request.user %}
+      <a href="{% url 'ads:comment_delete' comment.id %}">Delete</a>
+    {% endif %}
+  </p>
 {% endfor %}
 
 {% endblock content %}

@@ -110,3 +110,10 @@ def create_comment(request, pk: int):
     comment.save()
     return redirect('ads:detail', pk=pk)
 
+
+class CommentDeleteView(OwnerDeleteView):
+    model = Comment
+
+    def get_success_url(self):
+        ad = self.object.ad_id
+        return reverse('ads:detail', kwargs={'pk': ad})
