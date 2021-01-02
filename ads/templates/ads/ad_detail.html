@@ -1,5 +1,6 @@
 {% extends 'ads/base_bootstrap.html' %}
 
+{% load humanize %}
 {% block title %}{{ ad }} detail {% endblock %}
 
 {% block css %}
@@ -45,10 +46,6 @@
 </p>
 
 <h2>Comments</h2>
-{% for comment in comments %}
-  <p>{{ comment.text }} ({{comment.created_at}})</p>
-{% endfor %}
-
 {% if request.user.is_authenticated %}
   <form method="post" action="./comment">
     {% csrf_token %}
@@ -56,5 +53,10 @@
     <input type="submit" value="Submit">
   </form>
 {% endif %}
+
+{% for comment in comments %}
+  <p>{{ comment.text }} ({{ comment.created_at|naturaltime }})</p>
+{% endfor %}
+
 {% endblock content %}
 
