@@ -1,8 +1,42 @@
 {% extends 'ads/base_bootstrap.html' %}
 
 {% block title %}{{ ad }} detail {% endblock %}
+
+{% block css %}
+{{ block.super }}
+<style>
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: none;
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+  text-align: center;
+}
+
+.overlay img {
+  width: 90%;
+  margin-top: 50px;
+}
+</style>
+{% endblock css %}
+
 {% block content %}
+{% if ad.content_type %}
+<div id="overlay" class="overlay"
+   onclick="document.getElementById('overlay').style.display = 'none';" >
+   <img src="{% url 'ads:ad_picture' ad.id %}">
+</div>
+{% endif %}
+
 <h1>{{ ad.title }}</h1>
+{% if ad.content_type %}
+  <p style="float:right;cursor:pointer"><img src="{% url 'ads:ad_picture' ad.id %}"
+    onclick="document.getElementById('overlay').style.display = 'block'"></p>
+{% endif %}
 <p>{{ ad.text }}</p>
 <p>Price: ${{ ad.price }}</p>
 <p>
@@ -10,3 +44,4 @@
   <a href="{% url 'ads:delete' ad.id %}">Delete</a>
 </p>
 {% endblock content %}
+
