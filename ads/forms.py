@@ -11,6 +11,7 @@ class AdForm(forms.ModelForm):
 
     picture = forms.FileField(required=False,
             label=f"File to Upload <= {upload_limit_text}")
+    upload_field_name = 'picture'
 
     class Meta:
         model = Ad
@@ -23,7 +24,8 @@ class AdForm(forms.ModelForm):
         if picture is None:
             return
         if len(picture) > self.upload_limit:
-            self.add_error('picture', f"File must be < {upload_limit_text}")
+            self.add_error('picture',
+                    f"File must be < {self.upload_limit_text}")
 
     def save(self, commit=False):
         # Convert uploaded file to a picture

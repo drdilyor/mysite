@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import View
@@ -58,10 +59,23 @@ class AdUpdateView(LoginRequiredMixin, View):
             return render(request, self.template_name, context)
 
         form.save()
-        return render(self.success_url)
+        return redirect(self.success_url)
 
 
 class AdDeleteView(OwnerDeleteView):
     model = Ad
     success_url = reverse_lazy('ads:index')
+
+
+def stream_picture(request, pk: int):
+    ad = get_object_or_404(Ad, pk=pk)
+
+    if not ad.content_type:
+        raise Http404
+
+    response = HttpResponse()
+    response['Content-Type'] = ad.content_type
+    response['Content-Length'] = len(ad.picture)
+    response.write(ad.picture)
+    return response
 
