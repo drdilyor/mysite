@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import View
 
 from ads.forms import AdForm, CommentForm
@@ -93,4 +94,19 @@ def stream_picture(request, pk: int):
     response['Content-Length'] = len(ad.picture)
     response.write(ad.picture)
     return response
+
+
+@login_required
+def create_comment(request, pk: int):
+    if request.method == 'get':
+        return redirect('ads:detail', pk=pk)
+
+    ad = get_object_or_404(Ad, pk=pk)
+    text = request.POST.get('comment')
+    if not text or not (3 <= len(text) <= 500):
+        return redirect('ads:detail', pk=pk)
+
+    comment = Comment(text=text, ad=ad, owner=request.user)
+    comment.save()
+    return redirect('ads:detail', pk=pk)
 
