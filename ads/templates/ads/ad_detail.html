@@ -39,12 +39,16 @@
   <p style="float:right;cursor:pointer"><img src="{% url 'ads:ad_picture' ad.id %}"
     onclick="document.getElementById('overlay').style.display = 'block'"></p>
 {% endif %}
+
 <p>{{ ad.text }}</p>
 <p>Price: ${{ ad.price }}</p>
-<p>
-  <a href="{% url 'ads:update' ad.id %}">Edit</a>
-  <a href="{% url 'ads:delete' ad.id %}">Delete</a>
-</p>
+
+{% if ad.owner == request.user %}
+  <p>
+    <a href="{% url 'ads:update' ad.id %}">Edit</a>
+    <a href="{% url 'ads:delete' ad.id %}">Delete</a>
+  </p>
+{% endif %}
 
 <h2>Comments</h2>
 {% if request.user.is_authenticated %}
