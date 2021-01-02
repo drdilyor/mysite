@@ -1,11 +1,11 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from .models import Ad
-from .humanize import naturalsize
+from ads.models import Ad
+from ads.humanize import naturalsize
 
 
-class CreateForm(forms.ModelForm):
+class AdForm(forms.ModelForm):
     upload_limit = 2 << 10 << 10
     upload_limit_text = naturalsize(upload_limit)
 
@@ -14,7 +14,7 @@ class CreateForm(forms.ModelForm):
 
     class Meta:
         model = Ad
-        fields = ['title', 'text', 'picture']  # picture is manual
+        fields = ['title', 'price', 'text', 'picture']  # picture is manual
     
     def clean(self):
         # Validate the size of picture
