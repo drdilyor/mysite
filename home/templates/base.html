@@ -7,13 +7,14 @@
   <meta name="dj4e" content="bf4334a2421c544eaa17629e52029ca1">
   <meta name="dj4e-code" content="42160578601962">
   <title>{% block title %}ChuckList{% endblock %}</title>
-  <style>body { font-family: sans-serif; }</style>
+	<link rel="stylesheet" href="{% static 'lib/materialize.css' %}">
   <link rel="icon" href="/static/favicon.ico"></link>
   {% block css %}{% endblock %}
-  {% block js %}{% endblock %}
 </head>
 <body>
-{% block navbar %}{% endblock %}
 {% block content %}{% endblock %}
+
+<script src="{% static 'lib/materialize.min.js' %}"></script>
+{% block js %}{% endblock %}
 </body>
 </html>
