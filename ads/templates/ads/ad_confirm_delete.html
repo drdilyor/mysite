@@ -4,12 +4,14 @@
 {% block content %}
 {{ block.super }}
 
-<h1>Confirm delete</h1>
-<p>Do you really want to delete ad {{ ad }}"?</p>
-<form method="post">
-  {% csrf_token %}
-  <input type="submit" value="Yes, delete.">
-  <input type="submit" value="Cancel"
-         onclick="window.location='{% url 'ads:detail' ad.id %}';return false">
-</form>
+<div class="container">
+  <h1>Confirm delete</h1>
+  <p>Do you really want to delete ad {{ ad }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn red waves-effect waves-light" type="submit">Yes, delete.</button>
+    <a class="btn-flat waves-effect" href="{% url 'ads:detail' ad.id %}">Cancel</a>
+  </form>
+</div>
 {% endblock content %}
+
