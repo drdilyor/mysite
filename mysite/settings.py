@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'autos.apps.AutosConfig',
     'home.apps.HomeConfig',
     'polls.apps.PollsConfig',
+    'materializecssform',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

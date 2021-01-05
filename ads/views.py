@@ -93,6 +93,7 @@ def stream_picture(request, pk: int):
     response = HttpResponse()
     response['Content-Type'] = ad.content_type
     response['Content-Length'] = len(ad.picture)
+    response['Cache-Control'] = f'max-age={24*60*60}'
     response.write(ad.picture)
     return response
 

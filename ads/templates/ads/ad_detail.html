@@ -1,77 +1,73 @@
 {% extends 'ads/base_navbar.html' %}
 
 {% load humanize %}
+{% load materializecss %}
 {% block title %}{{ ad }} detail {% endblock %}
 
 {% block css %}
 {{ block.super }}
 <style>
-.overlay{
-  z-index: 10;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: none;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.5); /*dim the background*/
-  text-align: center;
+.align-down {
+  display: flex;
+  align-items: bottom;
 }
-
-.overlay img {
-  width: 90%;
-  margin-top: 50px;
+.fill-width {
+  width: 100%;
+  height: auto;
 }
 </style>
 {% endblock css %}
+{% block js %}
+{{ block.super }}
+<script>
+$(document).ready(function() {
+  $('.materialboxed').materialbox()
+})
+</script>
+{% endblock js %}
 
 {% block content %}
 {{ block.super }}
-
-{% if ad.content_type %}
-<div id="overlay" class="overlay"
-   onclick="document.getElementById('overlay').style.display = 'none';" >
-   <img src="{% url 'ads:ad_picture' ad.id %}">
-</div>
-{% endif %}
-
-<h1>{{ ad.title }}</h1>
-{% if ad.content_type %}
-  <p style="float:right;cursor:pointer"><img src="{% url 'ads:ad_picture' ad.id %}"
-    onclick="document.getElementById('overlay').style.display = 'block'"></p>
-{% endif %}
-
-<p>{{ ad.text }}</p>
-<p>Price: ${{ ad.price }}</p>
-
-{% if ad.owner == request.user %}
-  <p>
-    <a href="{% url 'ads:update' ad.id %}">Edit</a>
-    <a href="{% url 'ads:delete' ad.id %}">Delete</a>
-  </p>
-{% endif %}
-
-<h2>Comments</h2>
-{% if request.user.is_authenticated %}
-  <form method="post" action="./comment">
-    {% csrf_token %}
-    {{ comment_form.as_p }}
-    <p>
-      <input type="submit" value="Submit">
-      <input type="button" value="All ads"
-        onclick="window.location='{% url 'ads:index' %}';return false">
-    </p>
-  </form>
-{% endif %}
-
-{% for comment in comments %}
-  <p>{{ comment.text }} ({{ comment.created_at|naturaltime }})
-    {% if comment.owner == request.user %}
-      <a href="{% url 'ads:comment_delete' comment.id %}">Delete</a>
+<div class="container">
+  <h1 class="">{{ ad.title }}</h1>
+  <div class="row">
+    {% if ad.content_type %}
+    <!-- please explain me how does this work -->
+    <div class="col m4 push-m8 hide-on-small-only">
+      <div class="right">
+        <img class="materialboxed" src="{% url 'ads:ad_picture' ad.id %}">
+      </div>
+    </div>
+    <div class="col s12 hide-on-med-and-up">
+      <img class="fill-width" src="{% url 'ads:ad_picture' ad.id %}">
+    </div>
     {% endif %}
+
+    <div class="col s12{% if ad.content_type %} m8 pull-m4{% endif %}">
+      {{ ad.text|linebreaks }}
+      <p>Price: ${{ ad.price }}</p>
+      <a class="btn-flat waves-effect" href="{% url 'ads:update' ad.id %}">
+        <i class="material-icons">edit</i></a>
+      <a class="btn-flat waves-effect" href="{% url 'ads:delete' ad.id %}">
+        <i class="material-icons">delete</i></a>
+    </div>
+  </div>
+  <form action="comment" method="post">
+    {% csrf_token %}
+    {{ comment_form|materializecss }}
+    <button type="submit" class="btn waves-effect waves-light">Submit</button>
+    <a class="btn-flat waves-effect" href="{% url 'ads:index' %}">Back to ads</a>
+  </form>
+  {% for comment in comments %}
+  <p class="align-down">
+    <span>{{ comment.text }} ({{ comment.created_at|naturaltime }})</span>
+      {% if comment.owner == request.user %}
+      <a href="{% url 'ads:comment_delete' comment.id %}"><i class="material-icons">delete</i></a>
+      {% endif %}
   </p>
-{% endfor %}
+  {% endfor %}
+  </div>
+</div>
 
 {% endblock content %}
 
