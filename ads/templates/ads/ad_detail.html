@@ -1,4 +1,4 @@
-{% extends 'ads/base_bootstrap.html' %}
+{% extends 'ads/base_navbar.html' %}
 
 {% load humanize %}
 {% block title %}{{ ad }} detail {% endblock %}
@@ -27,6 +27,8 @@
 {% endblock css %}
 
 {% block content %}
+{{ block.super }}
+
 {% if ad.content_type %}
 <div id="overlay" class="overlay"
    onclick="document.getElementById('overlay').style.display = 'none';" >

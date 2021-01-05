@@ -1,8 +1,10 @@
-{% extends 'ads/base_bootstrap.html' %}
+{% extends 'ads/base_navbar.html' %}
 
 {% block title %}Add/Update Ad{% endblock %}
 
 {% block content %}
+{{ block.super }}
+
 <form method="post" enctype="multipart/form-data" id="upload_form">
   {% csrf_token %}
   <table>{{ form.as_table }}</table>

@@ -1,6 +1,7 @@
-{% extends 'ads/base_bootstrap.html' %}
+{% extends 'ads/base_navbar.html' %}
 
 {% block content %}
+{{ block.super }}
 Login to proceed
 <form method="post">
   {% csrf_token %}

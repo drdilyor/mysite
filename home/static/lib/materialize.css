@@ -2594,7 +2594,7 @@ ul:not(.browser-default) > li {
 }
 
 a {
-  color: #546e7a;
+  color: #455a64;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -8091,5 +8091,3 @@ input[type=range]::-ms-thumb {
     margin-top: 1.2rem;
   }
 }
-
-/*# sourceMappingURL=materialize.css.map */

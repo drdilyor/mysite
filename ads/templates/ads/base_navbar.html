@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block css %}
+  {{ block.super }}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock css %}
+
+{% block js %}
+  {{ block.super }}
+  <script>
+    $(document).ready(function() {
+      $('.sidenav').sidenav()
+      $('.dropdown-trigger').dropdown()
+    })
+  </script>
+{% endblock js %}
+
+{% block content %}
+{% url 'ads:index' as ads %}
+<nav>
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo" style="padding-left: 1em">ChuckList</a>
+    <a href="#" data-target="nav-mobile" class="sidenav-trigger">
+      <i class="material-icons">menu</i>
+    </a>
+    <ul class="right hide-on-med-and-down">
+      {% include 'ads/_navbar_content.html' with dropdown="drop-account" %}
+    </ul>
+  </div>
+</nav>
+
+<ul class="sidenav" id="nav-mobile"> 
+  {% include 'ads/_navbar_content.html' with dropdown="drop-account-mobile" %}
+</ul>
+
+{% endblock content %}

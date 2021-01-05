@@ -1,7 +1,9 @@
-{% extends 'ads/base_bootstrap.html' %}
+{% extends 'ads/base_navbar.html' %}
 
 {% block title %}Confirm delete{% endblock %}
 {% block content %}
+{{ block.super }}
+
 <h1>Confirm delete</h1>
 <p>Do you really want to delete ad {{ ad }}"?</p>
 <form method="post">
