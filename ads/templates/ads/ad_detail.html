@@ -15,6 +15,11 @@
   width: 100%;
   height: auto;
 }
+.responsive:not(.active) {
+  /* not .active to display correctly when lightboxed */
+  max-width: 100%;
+  height: auto;
+}
 </style>
 {% endblock css %}
 {% block js %}
@@ -35,7 +40,7 @@ $(document).ready(function() {
     <!-- please explain me how does this work -->
     <div class="col m4 push-m8 hide-on-small-only">
       <div class="right">
-        <img class="materialboxed responsive-img" src="{% url 'ads:ad_picture' ad.id %}">
+        <img class="materialboxed responsive" src="{% url 'ads:ad_picture' ad.id %}">
       </div>
     </div>
     <div class="col s12 hide-on-med-and-up">
