@@ -1,20 +1,28 @@
-{% extends 'ads/base_bootstrap.html' %}
+{% extends 'ads/base_navbar.html' %}
 
 {% block content %}
-
-{% if ad_list %}
-<ul>
-  {% for ad in ad_list %}
-  <li>
-    <a href="{% url 'ads:detail' ad.id %}">{{ ad.title }}</a>
-    {% if request.user == ad.owner %}
-      (<a href="{% url 'ads:update' ad.id %}">Edit</a> |
-      <a href="{% url 'ads:delete' ad.id %}">Delete</a>)
-    {% endif %}
-  </li>
-  {% endfor %}
-</ul>
-{% else %}
-  No ads yet.
-{% endif %}
+{{ block.super }}
+<div class="container">
+  <h1>Ads application</h1>
+  <p>Welcome to the ads applciation. Here you can create ads and comment on them. Be sure not to
+     miss new versions ;)
+  </p>
+  {% if ad_list %}
+  <ul class="collection">
+    {% for ad in ad_list %}
+    <li class="collection-item">
+      <a href="{% url 'ads:detail' ad.id %}">{{ ad.title }}</a>
+      {% if request.user == ad.owner %}
+      <div class="secondary-content">
+        <a href="{% url 'ads:update' ad.id %}"><i class="material-icons">edit</i></a>
+        <a href="{% url 'ads:delete' ad.id %}"><i class="material-icons">delete</i></a>
+      </div>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No ads yet.</p>
+  {% endif %}
+</div>
 {% endblock content %}

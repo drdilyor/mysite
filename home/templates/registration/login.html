@@ -1,12 +1,18 @@
-{% extends 'ads/base_bootstrap.html' %}
+{% extends 'ads/base_navbar.html' %}
 
+{% load materializecss %}
 {% block content %}
-Login to proceed
-<form method="post">
-  {% csrf_token %}
-  <table>{{ form.as_table }}</table>
-  {% for e in form.errors %}{{ e }}{% endfor %}
-  <input type="hidden" name="next" value="{{ next }}">
-  <input type="submit" value="Login">
-</form>
+{{ block.super }}
+
+<div class="container">
+  <h1>Login to proceed</h1>
+  <p>Please, enter your username and password to login into your account</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="row">{{ form|materializecss:"s12 m6" }}</div>
+    {% for e in form.errors %}{{ e }}{% endfor %}
+    <input type="hidden" name="next" value="{{ next }}">
+    <button class="btn waves-effect waves-light" type="submit">Login</button>
+  </form>
+</div>
 {% endblock content %}
