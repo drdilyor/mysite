@@ -6,3 +6,7 @@ venv/
 
 db.sqlite3
 mysite/settingssecret.py
+mysite/github_settings.py
+
+lib/
+
