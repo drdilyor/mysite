@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # noinspection PyUnresolvedReferences
 from .settingssecret import *
+from .github_settings import *
 
 ALLOWED_HOSTS = ['*']
 
