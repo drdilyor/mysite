@@ -20,6 +20,20 @@
   max-width: 100%;
   height: auto;
 }
+.flex { display: flex; }
+.reverse { flex-direction: row-reverse; }
+.flex-1 { flex: 1; }
+.img-container { max-width: 40%; }
+@media screen and (max-width: 599.8px) {
+  .column-on-small { flex-direction: column; }
+  .img-container {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
 </style>
 {% endblock css %}
 {% block js %}
@@ -35,20 +49,15 @@ $(document).ready(function() {
 {{ block.super }}
 <div class="container">
   <h1 class="">{{ ad.title }}</h1>
-  <div class="row">
+  <div class="flex reverse column-on-small">
     {% if ad.content_type %}
     <!-- please explain me how does this work -->
-    <div class="col m4 push-m8 hide-on-small-only">
-      <div class="right">
+    <div class="img-container">
         <img class="materialboxed responsive" src="{% url 'ads:ad_picture' ad.id %}">
-      </div>
-    </div>
-    <div class="col s12 hide-on-med-and-up">
-      <img class="fill-width" src="{% url 'ads:ad_picture' ad.id %}">
     </div>
     {% endif %}
 
-    <div class="col s12{% if ad.content_type %} m8 pull-m4{% endif %}">
+    <div class="flex-1">
       {{ ad.text|linebreaks }}
       <p>Price: ${{ ad.price }}</p>
       <a class="btn-flat waves-effect" href="{% url 'ads:update' ad.id %}">
