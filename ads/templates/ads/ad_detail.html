@@ -11,10 +11,6 @@
   display: flex;
   align-items: bottom;
 }
-.fill-width {
-  width: 100%;
-  height: auto;
-}
 .responsive:not(.active) {
   /* not .active to display correctly when lightboxed */
   max-width: 100%;
@@ -36,6 +32,7 @@
 
 </style>
 {% endblock css %}
+
 {% block js %}
 {{ block.super }}
 <script>
@@ -51,19 +48,20 @@ $(document).ready(function() {
   <h1 class="">{{ ad.title }}</h1>
   <div class="flex reverse column-on-small">
     {% if ad.content_type %}
-    <!-- please explain me how does this work -->
     <div class="img-container">
-        <img class="materialboxed responsive" src="{% url 'ads:ad_picture' ad.id %}">
+      <img class="materialboxed responsive" src="{% url 'ads:ad_picture' ad.id %}">
     </div>
     {% endif %}
 
     <div class="flex-1">
       {{ ad.text|linebreaks }}
       <p>Price: ${{ ad.price }}</p>
+      {% if ad.owner == request.user %}
       <a class="btn-flat waves-effect" href="{% url 'ads:update' ad.id %}">
         <i class="material-icons">edit</i></a>
       <a class="btn-flat waves-effect" href="{% url 'ads:delete' ad.id %}">
         <i class="material-icons">delete</i></a>
+      {% endif %}
     </div>
   </div>
   <form action="comment" method="post">
